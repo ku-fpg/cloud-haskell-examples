@@ -29,7 +29,7 @@ main = do
           
           -- message is a (respId, Msg), replyBack will match 
           send echoPid (self, "hello")
-         
+          send echoPid "HEYHEYHEY"
           -- expect a message or timeout doesn't seem to work...
           m <- expectTimeout 1000000
 

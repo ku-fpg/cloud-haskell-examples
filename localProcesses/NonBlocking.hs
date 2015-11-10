@@ -4,23 +4,26 @@ import Control.Distributed.Process.Node
 import Control.Monad (forever)
 import Control.Concurrent (threadDelay)
 
--- receive Order - ProcessID
+-- Receive Order - ProcessID
+--                 Int
 --                 String
 --                 _____ 
 listen = do
       third <- expect :: Process ProcessId
+      second <- expectTimeout 1000 :: Process (Maybe Int)
       first <- expect :: Process String
-      second <- expectTimeout 100000 :: Process (Maybe String)
       mapM_ (say) [(show first), (show second), (show third)]
       send third ()
 
---Send Order - String
+--Send Order - Int 
+--             String
 --             ProcessId
 --             
 
 demo :: Process ()
 demo = do
-    listener <- spawnLocal listen
+    listener <- spawnLocal $ listen
+    send listener (3 :: Int)
     send listener "hello"
     getSelfPid >>= send listener
     () <- expect
