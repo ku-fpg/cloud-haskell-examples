@@ -1,11 +1,10 @@
 # Local Processes
 
+## Setup
+  In order to build and run these examples the user can just use the 'cabal build' command 
+  and then run them (from one machine) from the dist/build/NonBlocking/ or dist/build/SpawnLocal
+  directories
 ## SpawnLocal.hs
-### Building
- cabal build
-### Running
- Run dist/build/SpawnLocal/SpawnLocal in terminal
-## What's Happening?
   In this example a local process is created that will act as a server.
   It is able to receive two types of messages, (ProcessId, String) and String.
   If the (ProcessId, String) message type is received then the replyBack function
